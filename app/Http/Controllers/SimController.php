@@ -48,7 +48,7 @@ class SimController extends Controller
         $this->domain = $request->server('HTTP_HOST');
         $this->options = $options;
         $this->domainName = config('domainInfo')['domain_name'];
-        $this->template = isset(config('domainInfo')['template']) ? 'templates.' . config('domainInfo')['template'] .'.' : 'templates.default.';
+        $this->template = isset(config('domainInfo')['template']) ? 'templates.' . config('domainInfo')['template'] .'.' : 'templates.mydang.';
 	    $this->bangso->setDomain($this->domain);
 	    $this->middleware('doNotCacheResponse', ['only' => ['actionDetailSim']]);
     }

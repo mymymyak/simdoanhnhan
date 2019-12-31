@@ -60,7 +60,7 @@ if (!empty($tag)) {
 			$sim_view = $str_nhomso != '/' ? preg_replace($str_nhomso . '/', $str_hl, $sim->simfull) : $sim->simfull;
 			?>
            <tr>
-               <th class="text-center align-middle d-none d-md-table-cell" scope="row"><span class="stt">{{ $offsets + $key + 1 }}</span></th>
+               <th class="text-center align-middle  d-md-table-cell" scope="row"><span class="stt">{{ $offsets + $key + 1 }}</span></th>
                 <td class="text-center text-nowrap text-center align-middle">
                     <a class="text-danger font-weight-bold fs-120" href="/{{$sim->sim}}">{!! $sim_view !!}</a>
                 </td>
