@@ -1,0 +1,12 @@
+{
+    "name": "zkiller/filemanager",
+    "description": "FileManager demo",
+    "authors": [
+        {
+            "name": "Do Duy Duc",
+            "email": "laven9696@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
