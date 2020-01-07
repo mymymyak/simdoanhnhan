@@ -132,7 +132,22 @@
     <div class="simhot">
         <h3 class="head-title no-icon"><i class="fa fa-bullhorn" aria-hidden="true"></i> SIM VINAPHONE</h3>
         <div class="row col-mar-5">
-            <?php
+            <div class="row">
+    <div class="table-responsive mt-1">
+                <table class="table-custom-1 table table-bordered table-striped border-0 font-weight-500">
+            <thead>
+                <tr>
+             <th class="text-center border-white d-none d-md-table-cell" scope="col">STT</th>
+            <th class="text-center border-white" scope="col">Sim số</th>
+            <th class="text-center border-white" scope="col">Giá bán</th>
+            <th class="text-center border-white d-none d-md-table-cell" scope="col">Mạng</th>
+            
+            <th class="text-center border-white" scope="col">Đặt mua</th>
+           
+        </tr>
+    </thead>
+            <tbody>
+                 <?php
             shuffle($listUuTien[2]);
             $listViettel = array_slice($listUuTien[2], 0 ,16);foreach ($listViettel as $key => $simvietel) :
             $mang = checkmang($simvietel['sim']);
@@ -141,24 +156,46 @@
             $classRowItem = $key == 0 ? ' first' : '';
             $sim_url = $simvietel['sim'];
             ?>
-            <div class="<?= $classRow ?>">
-                <div class="simhotitem<?= $classRowItem ?>">
-                    <a href="<?= $sim_url ?>">
-                        <img src="/frontend/icon/icon_<?= $mangimg ?>.png?v=1">
-                        <p>
-                            <span class="ssim"><?= $simvietel['simfull'] ?></span>
-                            <span class="price"><?= number_format($simvietel['price']) ?> đ</span>
-                        </p>
-                    </a>
-                    <a class="hv" href="<?= $sim_url ?>">Đặt mua</a>
-                </div>
-            </div>
-            <?php endforeach; ?>
-            <div class="col-md-3">
-                <div class="simhotitem viewmore">
-                    <a href="/sim-vinaphone"><i class="fa fa-location-arrow fa-2x" aria-hidden="true" style="margin-right: 10px"></i>XEM THÊM</a>
-                </div>
-            </div>
+
+    @if(!empty($listViettel))
+      
+         
+           <tr>
+               <th class="text-center align-middle d-none d-md-table-cell" scope="row"><span class="stt">{{ $offsets + $key + 1 }}</span></th>
+                <td class="text-center text-nowrap text-center align-middle">
+                    <a class="text-danger font-weight-bold fs-120" href="<?= $sim_url ?>"><?= $simvietel['simfull'] ?></a>
+                </td>
+                <td class="text-center align-middle"><?= number_format($simvietel['price']) ?> đ</td>
+                <td class="text-center align-middle d-none d-md-table-cell">
+                    <div class="mang">
+                     <img src="/frontend/icon/icon_<?= $mangimg ?>.png?v=1">
+                    </div>
+                </td>
+               
+                <td class="text-nowrap text-center align-middle">
+                    <a class="btn btn-warning btn-sm" href="<?= $sim_url ?>" rel="nofollow">Mua ngay</a>
+            </td>
+        </tr>
+       <?php endforeach; ?>
+    @else
+    <div class="row">
+    <div class="col-12 border rounded px-1 py-3 mt-3 bg-light text-center">
+        <p class="align-middle mb-0">Sim chưa được cập nhật lên web</p>
+        <p class="align-middle mb-0">Quý khách có nhu cầu sử dụng số dạng này, hãy liên hệ với chúng tôi để được hỗ trợ nhanh nhất!</p>
+        <p class="mt-2 mb-0">
+            <a class="btn-support-chat btn btn-primary rounded-pill text-left font-weight-bold pl-1 fs-15 mr-3 pr-5" href="https://zalo.me/" title="Chat Zalo"><img src="/frontend/icon/zalo-icon.svg" alt="Chat Zalo" height="24" class="mr-1">Chat Zalo</a>
+            <a class="btn-support-chat btn btn-primary rounded-pill text-left font-weight-bold pl-1 fs-15 mr-3" href="https://m.me/" title="Chat Facebook"><img src="/frontend/icon/message_fb.png" alt="Chat Zalo" height="24" class="mr-1">Chat Facebook</a>
+            <a class="badge badge-pill badge-warning text-left font-weight-bold pl-1 fs-15 mt-2" href="tel:0888106699" title=" 0888.10.6699"><img src="/frontend/icon/call-icon.svg" alt=" 0888.10.6699" height="24" class="mr-1"> 0888.10.6699</a>
+        </p>
+    </div>
+</div>
+    @endif
+</tbody>
+</table>
+</div>
+</div>
+           </div>
+          
         </div>
     </div>
     <?php endif; ?>

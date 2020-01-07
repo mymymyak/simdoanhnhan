@@ -206,7 +206,7 @@ if (!empty($arrayGia)) {
     }
 }
 ?>
-<div class="box-filter">
+<div class="box-filter"   style="border-radius: .5rem;">
     <h3 class="h-title">Bộ lọc sim</h3>
     <?php if (empty($hideDauso) && $dausoFilder != '') : ?>
     <div class="boxgoiy loc_dauso">

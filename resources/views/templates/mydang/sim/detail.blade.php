@@ -31,23 +31,23 @@
       }
     }
 </script>
-<div class="col-12 border p-3 mt-2">
+<div class="col-12 border p-3 mt-2 " style="border-radius: .5rem;">
             <div class="row">
                 <div class="col-md-6">
-    <div class="sim-info-header"><h2 class="sim-header">Thông tin số sim</h2></div>
+    
 
         <p class="mb-2 d-inline-block">Số Sim:</p>
         <h2 class="mb-2 font-weight-bold text-danger fs-130 d-inline-block ml-2">{{$sim['SOSIMMOIFULL']}}</h2><br/>
     
         <p class="mb-2 d-inline-block">Giá bán:</p>
-        <span class="font-weight-bold fs-120">{{$sim['GIABAN']}}</span>
+        <span class="font-weight-bold fs-120">{{$sim['GIABAN']}}</span><br/>
   
-        <p class="mb-2">Mạng di động:</p>
+        <p class="mb-2 d-inline-block">Mạng di động:</p>
         <span>
             <img src="/frontend/images/{{$sim['MANGIMG']}}.gif" alt="{{$sim['MANG']}}" />
-        </span>
+        </span><br/>
    
-       <p class="mb-2">Loại sim:</p>
+       <p class="mb-2 d-inline-block">Loại sim:</p>
         <span><a TARGET="_blank" href="/{{$sim['LOAIURL']}}"><strong>{{$sim['LOAI']}}</strong></a></span>
     
 </div>
@@ -62,7 +62,7 @@
 
 <?php if (!empty($suggest)) : ?>
 <h2 style="font-size: 1.17em;font-weight: 400;margin-left: 10px;margin-top: 10px;">SIM SỐ ĐẸP GẦN GIỐNG</h2>
-<div class="sugges-list">
+<div class="sugges-list ">
     <div class="divTable">
         <div class="divTableBody tableAjax">
             <div class="divTableRow hidden-xs">
@@ -109,9 +109,10 @@
 </div>
 <?php endif; ?>
 <?php if (!$sim['DABAN']) : ?>
-<div class="form-order" id="form-order">
-    <div class="sim-info-header"><h2 class="sim-header">MUA SIM {{$sim['SIMURL']}}</h2></div>
+<div class="form-order border" id="form-order"  style="border-radius: .5rem;">
+   
     <form name="order_form" id="order_form" style="padding-top:30px;padding-bottom:30px">
+        <h2 class="text-uppercase fs-150 font-weight-bold text-center">ĐẶT MUA SIM </h2>
         <input type="hidden" name="order_sim" value="{{$sim['SOSIM']}}">
         <input type="hidden" name="order_price" value="{{$sim['GIABAN']}}">
         <input type="hidden" name="order_telco" value="{{$sim['MANG']}}">
@@ -146,14 +147,17 @@
 		?>
         <script>var classVip = '<?php echo $vip; ?>'</script>
 	    <?php  $hotline = getHotLine(config('domainInfo')['hotlineList']);?>
-        <div class="form-groups group-submit">
+        <div class="form-group text-center mb-0">
 			<label>&nbsp;</label>
-            <input type="button" onclick="sendOrder()" value="Đặt sim" class="submit-btn"  />
-			<p class="txt-help">Đặt sim trực tiếp qua Hotline: <a<?= $clshot ?> href="tel:{{$hotline['hot']}}">{{$hotline['hot']}}</a></p>
+            <input type="button" onclick="sendOrder()" value="Đặt sim" class="btn-dat-sim btn btn-orange text-uppercase font-weight-bold px-5"  /><br/>
+             <p class="txt-help">Đặt sim trực tiếp qua Hotline: <a<?= $clshot ?> href="tel:{{$hotline['hot']}}">{{$hotline['hot']}}</a></p>
+			
         </div>
     </form>
 </div>
-<div class="hd">
+ 
+<div class="hd border"  style="border-radius: .5rem;">
+   
 <h3>Cách thức mua sim <?= $sim['SOSIMMOIFULL'] ?>:</h3>
 <ul><li>Đặt mua sim trên website hoặc điện Hotline</li><li>NVKD sẽ gọi lại tư vấn và xác nhận đơn hàng</li><li>Nhận sim tại nhà, kiểm tra thông tin chính chủ và thanh toán cho người giao sim </li></ul>
 <h3 class="h32">Cách thức giao sim <?= $sim['SOSIMMOIFULL'] ?>:</h3>
