@@ -88,6 +88,183 @@
         }
     </style>
     @endif
+    <style type="text/css">
+        .col-left .card:FIRST-CHILD, .col-right .card:FIRST-CHILD {
+    margin-top: 0 !important;
+          }
+          .cart-custom-1 {
+    border-radius: .5rem;
+    
+}
+@media (min-width: 768px)
+.d-md-flex {
+    display: -ms-flexbox!important;
+    display: flex!important;
+}
+.d-none {
+    display: none!important;
+}
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    
+    border-radius: .25rem;
+}
+.cart-custom-1 .card-header:first-child {
+    border-radius: calc(.5rem - 1px) calc(.5rem - 1px) 0 0;
+}
+.card-header-custom-1 {
+    position: relative;
+}
+.fs-120 {
+    font-size: 18px !important;
+}
+.font-weight-bold {
+    font-weight: 700!important;
+}
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.text-center {
+    text-align: center!important;
+}
+.text-uppercase {
+    text-transform: uppercase!important;
+}
+.p-3 {
+    padding: 1rem!important;
+    max-width: 71%;
+    margin-left: 31px;
+}
+.pl-3, .px-3 {
+    padding-left: 1rem!important;
+}
+.fs-15 {
+    font-size: 15px !important;
+}
+
+.font-weight-bold {
+    font-weight: 700!important;
+}
+.text-left {
+    text-align: left!important;
+}
+.pl-1, .px-1 {
+    padding-left: .25rem!important;
+}
+.d-block {
+    display: block!important;
+}
+.badge-warning {
+    color: #212529;
+    background-color: #ffc107;
+}
+.badge-pill {
+    padding-right: .6em;
+    padding-left: .6em;
+    border-radius: 10rem;
+}
+@media (prefers-reduced-motion: reduce)
+.badge {
+    transition: none;
+}
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.fs-15 {
+    font-size: 15px !important;
+}
+.btn-support-chat {
+    line-height: 26px;
+    padding: 2px .4em;
+}
+.font-weight-bold {
+    font-weight: 700!important;
+}
+.text-left {
+    text-align: left!important;
+}
+.pl-1, .px-1 {
+    padding-left: .25rem!important;
+}
+.mt-3, .my-3 {
+    margin-top: 1rem!important;
+}
+.d-block {
+    display: block!important;
+}
+.rounded-pill {
+    border-radius: 50rem!important;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+@media (prefers-reduced-motion: reduce)
+.btn {
+    transition: none;
+}
+}
+.btn-support-chat {
+    line-height: 26px;
+    padding: 2px .4em;
+}
+.font-weight-bold {
+    font-weight: 700!important;
+}
+.text-left {
+    text-align: left!important;
+}
+.pl-1, .px-1 {
+    padding-left: .25rem!important;
+}
+.mt-3, .my-3 {
+    margin-top: 1rem!important;
+}
+.d-block {
+    display: block!important;
+}
+.rounded-pill {
+    border-radius: 50rem!important;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+@media (prefers-reduced-motion: reduce)
+.btn {
+    transition: none;
+}
+.mr-1, .mx-1 {
+    margin-right: .25rem!important;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+    </style>
     <script type="application/ld+json">
     <?php  $hotline = getHotLine(config('domainInfo')['hotlineList']);?>
         {
@@ -204,11 +381,15 @@
                     </div>
                 </section>
                 <aside class="sidebar">
+                    
                     <div class="panel panel-arrows panel-orange panel-mang">
+                        <div class="card cart-custom-1 d-md-flex">
+                          <div class="card-header card-header-custom-1 text-center text-uppercase font-weight-bold bg-white fs-120">HỖ TRỢ KHÁCH HÀNG</div>
                         <div class="p-3">
 <div class="px-3"><a class="d-block badge badge-pill badge-warning text-left font-weight-bold pl-1 fs-15" title="{{$hotline['hot']}}" href="tel:{{$hotline['hot']}}"><img class="mr-1" src="/frontend/icon/call-icon.svg" alt="" height="24"> {{$hotline['hot']}}</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://zalo.me/{{$hotline['hot']}}" target="_blank" rel="noopener noreferrer"><img class="mr-1" src="/frontend/icon/zalo-icon.svg" alt="" height="24">Chat Zalo</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://m.me/" target="_blank" rel="noopener noreferrer"><img class="mr-1" src="/frontend/icon/message_fb.png" alt="" height="24">Chat Facebook</a></div>
                  </div> 
                     </div>
+                </div>
                     <div class="panel panel-arrows panel-orange panel-mang">
                         <div class="panel-header">
                             <span>SIM THEO GIÁ</span>
