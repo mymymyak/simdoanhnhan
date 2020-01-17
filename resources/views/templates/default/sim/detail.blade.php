@@ -54,7 +54,17 @@
     </li>
 </ul>
     <div class="col-right">
-        <img src="/{{$sim['SIMURL']}}.jpg" data-qazy="true"/>
+        @if(isset($sim['promotion']) && $sim['promotion'] != null)
+            <fieldset class="promotion-field">
+                <legend style=" line-height: 28px; ">&nbsp; <img src="/assets/images/gift.png" alt="Khuyến mãi Simthanglong.vn" style=" width: 20px; "> <strong>KHUYẾN MÃI</strong> &nbsp;</legend>
+
+                <ul>
+                    {!! $sim['promotion'] !!}
+                </ul>
+            </fieldset>
+        @else
+            <img src="/{{$sim['SIMURL']}}.jpg" data-qazy="true"/>
+        @endif
     </div>
 </div>
 <?php if (!empty($suggest)) : ?>

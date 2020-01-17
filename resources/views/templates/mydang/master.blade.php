@@ -417,14 +417,17 @@ a{padding-left:0}.bg-md-dark{background-color:#252525!important}.navbar-expand-l
             </div>
         </div>
         <div class="col-md-3 mb-3  col-right">
-                    <div class="card cart-custom-1 d-none d-md-flex">
-        <div class="card-header card-header-custom-1 text-center text-uppercase font-weight-bold bg-white fs-120">HỖ TRỢ KHÁCH HÀNG</div>
+    <div class="card cart-custom-1 d-none d-md-flex">
+      <div class="card-header card-header-custom-1 text-center text-uppercase font-weight-bold bg-white fs-120">HỖ TRỢ KHÁCH HÀNG</div>
         <div class="p-3">
-<div class="px-3"><a class="d-block badge badge-pill badge-warning text-left font-weight-bold pl-1 fs-15" title="{{$hotline['hot']}}" href="tel:{{$hotline['hot']}}"><img class="mr-1" src="/frontend/icon/call-icon.svg" alt="" height="24"> {{$hotline['hot']}}</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://zalo.me/{{$hotline['hot']}}" target="_blank" rel="noopener noreferrer"><img class="mr-1" src="/frontend/icon/zalo-icon.svg" alt="" height="24">Chat Zalo</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://m.me/" target="_blank" rel="noopener noreferrer"><img class="mr-1" src="/frontend/icon/message_fb.png" alt="" height="24">Chat Facebook</a></div>
-
-
-</div> 
-   </div>
+          <div class="px-3"><a class="d-block badge badge-pill badge-warning text-left font-weight-bold pl-1 fs-15" title="{{$hotline['hot']}}" href="tel:{{$hotline['hot']}}">
+       <img class="mr-1" src="/frontend/icon/call-icon.svg" alt="" height="24"> {{$hotline['hot']}}</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://zalo.me/{{$hotline['hot']}}" target="_blank" rel="noopener noreferrer">
+       <img class="mr-1" src="/frontend/icon/zalo-icon.svg" alt="" height="24">Chat Zalo</a> 
+       <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://m.me/" target="_blank" rel="noopener noreferrer">
+        <img class="mr-1" src="/frontend/icon/message_fb.png" alt="" height="24">Chat Facebook</a>
+       </div>
+        </div> 
+    </div>
 <div class="card cart-custom-1 mt-3 d-none d-md-flex">
         <div class="card-header card-header-custom-1 text-center text-uppercase font-weight-bold bg-white fs-120"><i class="fas fa-receipt fs-120 text-danger">&nbsp;</i>Đơn Hàng Mới</div>
        @if ($lastestOrder->count())

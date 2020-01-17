@@ -38,50 +38,42 @@ if (!empty($tag)) {
 	$str_nhomso = $str_nhomso;
 }
 ?>
-<div class="row">
-    <div class="table-responsive mt-1">
-                <table class="table-custom-1 table table-bordered table-striped border-0 font-weight-500">
-            <thead>
-                <tr>
-             <th class="text-center border-white" scope="col">STT</th>
-            <th class="text-center border-white" scope="col">Sim số đẹp</th>
-            <th class="text-center border-white" scope="col">Giá bán</th>
-            <th class="text-center border-white" scope="col">Mạng</th>
-            <th class="text-center border-white px-0" scope="col">Loại</th>
-            <th class="text-center border-white" scope="col">Đặt mua</th>
-           
-        </tr>
-    </thead>
-            <tbody>
+<div class="divTable">
+    <div class="divTableBody tableAjax">
+        <div class="divTableRow hidden-xs">
+            <div class="divTableCell hidden-xs">STT</div>
+            <div class="divTableCell">Số sim</div>
+            <div class="divTableCell">Giá bán</div>
+            <div class="divTableCell hidden-xs">Mạng</div>
+            <div class="divTableCell hidden-xs">Loại</div>
+            <div class="divTableCell ms-btn">Mua sim</div>
+        </div>
+    </div>
     @if(!empty($listSim))
         @foreach ($listSim as $key => $sim)
 			<?php
 			$sim = (object) $sim;
 			$sim_view = $str_nhomso != '/' ? preg_replace($str_nhomso . '/', $str_hl, $sim->simfull) : $sim->simfull;
 			?>
-           <tr>
-               <th class="text-center align-middle d-none d-md-table-cell" scope="row"><span class="stt">{{ $offsets + $key + 1 }}</span></th>
-                <td class="text-center text-nowrap text-center align-middle">
-                    <a class="text-danger font-weight-bold fs-120" href="/{{$sim->sim}}">{!! $sim_view !!}</a>
-                </td>
-                <td class="text-center align-middle">{{ number_format($sim->price) }}₫</td>
-                <td class="text-center align-middle">
+            <div class="divTableRow">
+                <div class="divTableCell hidden-xs gray"><span class="stt">{{ $offsets + $key + 1 }}</span></div>
+                <div class="divTableCell cell-left">
+                    <a class="green bold sosim" href="/{{$sim->sim}}">{!! $sim_view !!}</a>
+                </div>
+                <div class="divTableCell cell-right cell-price">{{ number_format($sim->price) }}₫</div>
+                <div class="divTableCell hidden-xs">
                     <div class="mang">
                         @if(isset($sim->telco) && isset($telco[$sim->telco]) && $telco[$sim->telco]['tenmang'])
                             <img src="<?= '/frontend/images2/' . $telco[$sim->telco]['tenmang'] . '.png' ?>" alt="{{$telco[$sim->telco]['tenmang']}}"/>
                         @endif
                     </div>
-                </td>
-                <td class="text-center align-middle">{{$cat[$sim->cat_id]}}</td>
-                <td class="text-nowrap text-center align-middle">
-                    <a class="btn btn-warning btn-sm" href="/{{$sim->sim}}" rel="nofollow">Mua ngay</a>
-            </td>
-        </tr>
+                </div>
+                <div class="divTableCell hidden-xs">{{$cat[$sim->cat_id]}}</div>
+                <div class="divTableCell">
+                    <a class="font-size-12 order-btn" href="/{{$sim->sim}}" rel="nofollow">Mua ngay</a></div>
+            </div>
         @endforeach
     @endif
-</tbody>
-</table>
-</div>
 </div>
 <div class="text-center" style="margin-bottom:10px">
     @include('pagination.default', ['paginator' => $paginatedItems, 'link_limit' => 5])

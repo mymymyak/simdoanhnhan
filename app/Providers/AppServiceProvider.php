@@ -60,10 +60,10 @@ class AppServiceProvider extends ServiceProvider
                 'footer_box_3' => isset($configObj->footer_box_3) ? $configObj->footer_box_3 : null,
                 'highlights_number' => $domainInfo->highlights_number,
             ]);
-            View::share('templateName', isset($domainInfo->template) ? 'templates.' .$domainInfo->template : 'templates.mydang');
+            View::share('templateName', isset($domainInfo->template) ? 'templates.' .$domainInfo->template : 'templates.default');
         } else {
 			Config::set('domainInfo', [
-                'template' => 'mydang',
+                'template' => 'default',
                 'logo' => null,
 				'logo_mobile' => null,
                 'favicon' => null,
@@ -87,7 +87,7 @@ class AppServiceProvider extends ServiceProvider
                 'footer_box_2' => null,
                 'footer_box_3' => null,
             ]);
-            View::share('templateName', 'templates.mydang');
+            View::share('templateName', 'templates.default');
 		}
     }
 

@@ -205,6 +205,11 @@
                 </section>
                 <aside class="sidebar">
                     <div class="panel panel-arrows panel-orange panel-mang">
+                        <div class="p-3">
+<div class="px-3"><a class="d-block badge badge-pill badge-warning text-left font-weight-bold pl-1 fs-15" title="{{$hotline['hot']}}" href="tel:{{$hotline['hot']}}"><img class="mr-1" src="/frontend/icon/call-icon.svg" alt="" height="24"> {{$hotline['hot']}}</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://zalo.me/{{$hotline['hot']}}" target="_blank" rel="noopener noreferrer"><img class="mr-1" src="/frontend/icon/zalo-icon.svg" alt="" height="24">Chat Zalo</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://m.me/" target="_blank" rel="noopener noreferrer"><img class="mr-1" src="/frontend/icon/message_fb.png" alt="" height="24">Chat Facebook</a></div>
+                 </div> 
+                    </div>
+                    <div class="panel panel-arrows panel-orange panel-mang">
                         <div class="panel-header">
                             <span>SIM THEO GIÁ</span>
                         </div>
@@ -328,87 +333,24 @@
     <!-- Footer -->
     <div class="clearfix"></div>
     <footer>
-        
         <div class="container">
             <div class="row row-f-30">
                 <div class="col-md-4">
                     <div class="logo-footer">
-                    <img src="/uploads/logo-v2.png" class="img-responsive" alt="simdoanhnhan.vn">
-                    </div>
-                    <br>
-                    <div class="company">
-<h2 class="title">SIM DOANH NHÂN</h2>
-<div class="company-description">
-<p>SIM DOANH NHÂN là website bán sim số đẹp thuộc TOP đi đầu thị trường với trụ sở chính hiện tại ở 22 Thành Công, Ba Đình và hơn 20 cơ sở trên Toàn Quốc. Website chính thức là SimDoanhNhan.vn - Hotline: 0888.10.6699</p> </div>
-</div>
-<div class="social">
-<a href="" target="_blank" class="facebook" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-<a href="" target="_blank" class="twitter" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-<a href="" target="_blank" class="youtube" rel="nofollow"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-<a href="" target="_blank" class="youtube" rel="nofollow"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-</div>
-                    <p class="rcopyright">Copyright 2019 © simdoanhnhan.vn</p>
+					<img src="{!! !empty(config('domainInfo')['logo']) ? config('domainInfo')['logo'] : url('frontend/icon/logo.png') !!}" class="img-responsive" alt="{{config('domainInfo')['domain_name']}}" />
+					</div>
+					<br>
+                    {!! !empty(config('domainInfo')['footer_box_1']) ? config('domainInfo')['footer_box_1'] : '' !!}
+                    <p class="rcopyright">Copyright {{date('Y')}} &copy; {{config('domainInfo')['domain_name']}}</p>
                 </div>
                 <div class="col-md-8">
                     <div class="list-company row clearfix">
-                        <div class="item col-xs-12 col-md-6">
-            <p class="title">Hà Nội</p>
-            <div class="info">
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 55B Ô Chợ Dừa, Q.Đống Đa.</p>
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 84 Nguyễn Chí Thanh, Q.Đống Đa.</p>
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 222 Nguyễn Văn Cừ, Q.Long Biên.</p>
-            </div>
-            </div>
-            <div class="item col-xs-12 col-md-6">
-            <p class="title">Hồ Chí Minh: </p>
-            <div class="info">
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 538 Nguyễn Thị Minh Khai, P2, Quận 3.</p>
-            <p><i class="fa fa-envelope" aria-hidden="true"></i> Số 49B Trần Hưng Đạo , Phường 6 , Quận 5.</p>
-            <p><i class="fa fa-phone" aria-hidden="true"></i> Số 84 Trương Vĩnh Ký , Phường Tân Thành , Quận Tân Phú.</p>
-            </div>
-            </div>
-            <div class="item col-xs-12 col-md-6">
-            <p class="title">Đà Nẵng</p>
-            <div class="info">
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 301 Nguyễn Văn Linh, Q.Thanh Khê.</p>
-            </div>
-            </div>
-            <div class="item col-xs-12 col-md-6">
-            <p class="title">Bắc Ninh</p>
-            <div class="info">
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 69 Trần Hưng Đạo, P.Tiền An.</p>
-            </div>
-            </div>
-            <div class="item col-xs-12 col-md-6">
-            <p class="title">Hải Dương</p>
-            <div class="info">
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 32 Trần Hưng Đạo, TP.Hải Dương.</p>
-            </div>
-            </div>
-            <div class="item col-xs-12 col-md-6">
-            <p class="title">Tuyên Quang</p>
-            <div class="info">
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 257 Quang Trung, P.Phan Thiết, TP.Tuyên Quang.</p>
-            </div>
-            </div>
-            <div class="item col-xs-12 col-md-6">
-            <p class="title">Hưng Yên</p>
-            <div class="info">
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> Số 76 - 78 Tòa nhà BIDV, vòng xuyến Văn Giang, TT Văn Giang</p>
-            </div>
-            </div>
-            <div class="item col-xs-12 col-md-6">
-            <p class="title">Lạng Sơn</p>
-            <div class="info">
-            <p><i class="fa fa-map-marker" aria-hidden="true"></i> 54 Lê Lợi, Vĩnh Trại, TP.Lạng Sơn.</p>
-            </div>
-            </div>
-                        
+                        {!! !empty(config('domainInfo')['footer_box_2']) ? config('domainInfo')['footer_box_2'] : '' !!}
+                        {!! !empty(config('domainInfo')['footer_box_3']) ? config('domainInfo')['footer_box_3'] : '' !!}
                     </div>
                 </div>
             </div>
         </div>
-    
     </footer>
     <!-- end Footer -->
 	<!-- START Check hidden hotline -->

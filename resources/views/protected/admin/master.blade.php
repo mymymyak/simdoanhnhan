@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{!! url('plugins/daterangepicker/daterangepicker.css') !!}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{!! url('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') !!}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"/>
     <link rel="stylesheet" href="{!! url('css/custom.css') !!}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -67,8 +68,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="http://3.bp.blogspot.com/-zkq2qOn-hvk/XTlvlidrhQI/AAAAAAAAGPM/GAt8LdWaKfstHZ7oARiktrG-6e8rx_dSgCLcBGAs/h60/troll.jpg" class="user-image" alt="User Image">
                             <span class="hidden-xs"><?php if (Sentinel::check()) {
-                                    echo Sentinel::getUser()->username;
-                                } ?></span>
+									echo Sentinel::getUser()->username;
+								} ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -76,14 +77,14 @@
                                 <img src="{!! url('dist/img/user2-160x160.jpg') !!}" class="img-circle"
                                      alt="User Image">
                                 <p>
-                                    <?php if (Sentinel::check()) {
-                                        echo Sentinel::getUser()->username;
-                                    } ?>
+									<?php if (Sentinel::check()) {
+										echo Sentinel::getUser()->username;
+									} ?>
                                     <small>{{date('d/m/Y H:i', strtotime(Sentinel::getUser()->created_at))}}</small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
-                            <?php if(Sentinel::check()) : ?>
+							<?php if(Sentinel::check()) : ?>
                             <li class="user-footer">
                                 <div class="pull-left">
                                     <a href="{{url()->route('profiles.show', Sentinel::getUser()->id)}}"
@@ -93,7 +94,7 @@
                                     <a href="{{url()->route('logout')}}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
-                            <?php endif; ?>
+							<?php endif; ?>
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
@@ -126,34 +127,41 @@
                     </a>
                 </li>
                 @if(isManager())
-                <li class="{{ set_active_admin('admin/domain') }} {{ set_active_admin('admin/domain/*') }}">
-                    <a href="{{route('domain.index')}}">
-                        <i class="fa fa-globe"></i><span> Quản lý domain</span>
-                    </a>
-                </li>
+                    <li class="{{ set_active_admin('admin/domain') }} {{ set_active_admin('admin/domain/*') }}">
+                        <a href="{{route('domain.index')}}">
+                            <i class="fa fa-globe"></i><span> Quản lý domain</span>
+                        </a>
+                    </li>
                 @endif
                 @if(isManager())
-                <li class="{{ set_active_admin('admin/bang-so') }} {{set_active_admin('admin/bang-so-danh-muc')}} {{ set_active_admin('admin/custom-query') }} {{ set_active_admin('admin/custom-query-configuration') }}">
-                    <a href="#">
-                        <i class="fa fa-folder text-aqua"></i> <span>Bảng số</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ set_active_admin('admin/bang-so') }}">
-                            <a href="{{route('managers.bangso.index')}}"><i class="fa fa-circle-o"></i> Bảng số tổng</a>
-                        </li>
-                        <li class="{{ set_active_admin('admin/bang-so-danh-muc') }}">
-                            <a href="{{route('managers.bangso.danhmuc')}}"><i class="fa fa-circle-o"></i> Bảng số danh mục</a>
-                        </li>
-                        <li class="{{ set_active_admin('admin/custom-query') }}">
-                            <a href="{{route('managers.site.custom.query')}}"><i class="fa fa-circle-o"></i> Custom Query</a>
-                        </li>
-                        <li class="{{ set_active_admin('admin/custom-query-configuration') }}">
-                            <a href="{{route('managers.custom.query.configuration')}}">
-                                <i class="fa fa-circle-o"></i> Cấu hình Custom Query</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="{{ set_active_admin('admin/bang-so') }} {{set_active_admin('admin/bang-so-danh-muc')}} {{ set_active_admin('admin/custom-query') }} {{ set_active_admin('admin/custom-query-configuration') }}">
+                        <a href="#">
+                            <i class="fa fa-folder text-aqua"></i> <span>Bảng số</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ set_active_admin('admin/bang-so') }}">
+                                <a href="{{route('managers.bangso.index')}}"><i class="fa fa-circle-o"></i> Bảng số tổng</a>
+                            </li>
+                            <li class="{{ set_active_admin('admin/bang-so-danh-muc') }}">
+                                <a href="{{route('managers.bangso.danhmuc')}}"><i class="fa fa-circle-o"></i> Bảng số danh mục</a>
+                            </li>
+                            <li class="{{ set_active_admin('admin/custom-query') }}">
+                                <a href="{{route('managers.site.custom.query')}}"><i class="fa fa-circle-o"></i> Custom Query</a>
+                            </li>
+                            <li class="{{ set_active_admin('admin/custom-query-configuration') }}">
+                                <a href="{{route('managers.custom.query.configuration')}}">
+                                    <i class="fa fa-circle-o"></i> Cấu hình Custom Query</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if(isManager())
+                    <li class="{{ set_active_admin('admin/promotion/*') }}">
+                        <a href="{{route('promotion.index')}}">
+                            <i class="fa fa-book"></i><span> Quản lí khuyến mãi</span>
+                        </a>
+                    </li>
                 @endif
                 <li class="{{ set_active_admin('admin/news') }} {{set_active_admin('admin/news/*')}}">
                     <a href="#">
@@ -170,11 +178,11 @@
                     </ul>
                 </li>
                 @if (isAdmin())
-                <li class="{{ set_active_admin('admin/page') }}">
-                    <a href="{{route('pages.index')}}">
-                        <i class="fa fa-edit"></i> <span>Pages</span>
-                    </a>
-                </li>
+                    <li class="{{ set_active_admin('admin/page') }}">
+                        <a href="{{route('pages.index')}}">
+                            <i class="fa fa-edit"></i> <span>Pages</span>
+                        </a>
+                    </li>
                 @endif
                 <li class="treeview {{ set_active_admin('admin/seo-config') }}
                 {{set_active_admin('admin/seo-config/*')}} {{set_active_admin('admin/link-goi-y')}}
@@ -193,7 +201,7 @@
                         <li class="{{ set_active_admin('admin/seo-config/create') }}">
                             <a href="{{route('seo-config.create', ['type' => 1])}}"><i class="fa fa-circle-o"></i> Tìm kiếm</a>
                         </li>
-						<li class="{{ set_active_admin('admin/link-goi-y') }}">
+                        <li class="{{ set_active_admin('admin/link-goi-y') }}">
                             <a href="{{route('managers.linkgoiy.index')}}"><i class="fa fa-circle-o"></i> Link Gợi ý</a>
                         </li>
                         <li class="{{ set_active_admin('admin/sitemap-robots') }}">
@@ -202,37 +210,37 @@
                     </ul>
                 </li>
                 @if (isAdmin())
-				<li class="{{ set_active_admin('admin/clear-cache') }}">
-                    <a href="/admin/clear-cache" onclick="return confirm('Bạn muốn xóa cache website?')">
-                        <i class="fa fa-remove"></i> <span>Xóa CACHE</span>
-                    </a>
-                </li>
+                    <li class="{{ set_active_admin('admin/clear-cache') }}">
+                        <a href="/admin/clear-cache" onclick="return confirm('Bạn muốn xóa cache website?')">
+                            <i class="fa fa-remove"></i> <span>Xóa CACHE</span>
+                        </a>
+                    </li>
                 @endif
                 @if (isAdmin())
-				<li class="{{ set_active_admin('admin/clear-bang-so') }}">
-                    <a href="/admin/clear-bang-so" onclick="return confirm('Bạn muốn xóa tất bảng số?')">
-                        <i class="fa fa-remove"></i> <span>Xóa Bảng sim</span>
-                    </a>
-                </li>
+                    <li class="{{ set_active_admin('admin/clear-bang-so') }}">
+                        <a href="/admin/clear-bang-so" onclick="return confirm('Bạn muốn xóa tất bảng số?')">
+                            <i class="fa fa-remove"></i> <span>Xóa Bảng sim</span>
+                        </a>
+                    </li>
                 @endif
                 @if(isManager())
-                <li class="treeview {{ set_active_admin('admin/profiles') }} {{set_active_admin('admin/role')}}">
-                    <a href="#">
-                        <i class="fa fa-lock"></i>
-                        <span>Users</span>
-                        <span class="pull-right-container"><span class="label label-primary pull-right">{{Sentinel::getUserRepository()->count()}}</span></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ set_active_admin('admin/profiles') }}">
-                            <a href="{{route('profiles.index')}}"><i class="fa fa-users"></i> List Users</a>
-                        </li>
-                        @if (isAdmin())
-                        <li class="{{ set_active_admin('admin/groups') }}">
-                            <a href="{{route('role.index')}}"><i class="fa fa-lock"></i> Roles</a>
-                        </li>
-                        @endif
-                    </ul>
-                </li>
+                    <li class="treeview {{ set_active_admin('admin/profiles') }} {{set_active_admin('admin/role')}}">
+                        <a href="#">
+                            <i class="fa fa-lock"></i>
+                            <span>Users</span>
+                            <span class="pull-right-container"><span class="label label-primary pull-right">{{Sentinel::getUserRepository()->count()}}</span></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ set_active_admin('admin/profiles') }}">
+                                <a href="{{route('profiles.index')}}"><i class="fa fa-users"></i> List Users</a>
+                            </li>
+                            @if (isAdmin())
+                                <li class="{{ set_active_admin('admin/groups') }}">
+                                    <a href="{{route('role.index')}}"><i class="fa fa-lock"></i> Roles</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
                 @endif
                 <li>
                     <a href="#">
@@ -252,32 +260,31 @@
     <div class="content-wrapper">
         <section class="content">
             @if (isAdmin())
-            <form action="{{route('admin_set_domain')}}" method="post" class="sidebar-form">
-                @csrf
-                <div class="input-group">
-                    <?php
-                    $domainRes = new \App\Repositories\Domain\DomainRepository(new \App\Models\TableDomain());
-                    $domainList = $domainRes->getDomainActive();
-                    ?>
-                    <select class="form-control" name="domain">
-                        <option value="">Choose Domain</option>
-                        @foreach ($domainList as $domain)
-                            <option value="{{$domain->domain}}" @php echo isset($_COOKIE['domain_setting']) && $_COOKIE['domain_setting'] == $domain->domain ? 'selected' : ''; @endphp>
-                                {{$domain->domain}}
-                            </option>
-                        @endforeach
-                    </select>
-                    <span class="input-group-btn">
+                <form action="{{route('admin_set_domain')}}" method="post" class="sidebar-form">
+                    @csrf
+                    <div class="input-group">
+						<?php
+						$domainRes = new \App\Repositories\Domain\DomainRepository(new \App\Models\TableDomain());
+						$domainList = $domainRes->getDomainActive();
+						?>
+                        <select class="form-control" name="domain">
+                            <option value="">Choose Domain</option>
+                            @foreach ($domainList as $domain)
+                                <option value="{{$domain->domain}}" @php echo isset($_COOKIE['domain_setting']) && $_COOKIE['domain_setting'] == $domain->domain ? 'selected' : ''; @endphp>
+                                    {{$domain->domain}}
+                                </option>
+                            @endforeach
+                        </select>
+                        <span class="input-group-btn">
                         <button type="submit" class="btn btn-flat"><i class="fa fa-save"></i></button>
                     </span>
-                </div>
-            </form>
+                    </div>
+                </form>
             @endif
             @include('protected.admin.message')
             @yield('content')
         </section>
     </div>
-
 
     <script src="{!! url('plugins/jQuery/jquery-2.2.3.min.js') !!}"></script>
     <script src="{!! url('js/jscolor.js') !!}"></script>
@@ -309,13 +316,41 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{!! url('dist/js/demo.js') !!}" type="text/javascript"></script>
     <script src="{!! url('js/base_admin.js') !!}?v=<?= time();?>" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_flat-blue',
-                radioClass: 'iradio_flat-blue'
-            });
-        });
+		$(document).ready(function() {
+			$('input').iCheck({
+				checkboxClass: 'icheckbox_flat-blue',
+				radioClass   : 'iradio_flat-blue'
+			});
+			$('.datepicker').datetimepicker({
+				//	defaultDate: moment().add(1, 'd'), //defaultDate
+				format    : 'YYYY-MM-DD HH:mm',
+				sideBySide: true,
+				//	minDate   : moment(), //minDate
+			});
+
+			function displayPromotionDate(input) {
+				if(input.val() === 'inactive') {
+					$('.active-date-row').show();
+					$('.expire-date-row').show();
+				} else if(input.val() === 'expired') {
+					$('.active-date-row').hide();
+					$('.expire-date-row').hide();
+				} else {
+					$('.active-date-row').hide();
+					$('.expire-date-row').show();
+				}
+			}
+
+			displayPromotionDate($('.select-status'));
+			$('.select-status').on("change", function() {
+				displayPromotionDate($(this));
+			});
+
+		});
     </script>
 </div>
 </body>
