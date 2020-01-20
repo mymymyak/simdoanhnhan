@@ -95,6 +95,7 @@ class DomainController extends Controller {
         $domain = $this->domain->find($id);
         $config = !empty($domain->config) ? json_decode($domain->config) : [];
         $template = config('global.template');
+        
         $template[''] = 'Chọn';
         ksort($template);
         return view('protected.admin.domain.edit', ['domain' => $domain, 'config' => $config, 'template' => $template]);

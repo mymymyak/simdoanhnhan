@@ -170,4 +170,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::post('link-goi-y', ['as' => 'managers.linkgoiy.save', 'uses' => 'BangsoController@linkgoiySave']);
 
     Route::resource('domain', 'DomainController')->middleware('admin');
+	Route::resource('promotion', 'PromotionController')->middleware('admin');
 });

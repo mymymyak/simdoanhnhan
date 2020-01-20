@@ -106,6 +106,16 @@
                     {!! Form::textarea('header_code', null, array('class'=>'form-control', 'id' => 'header_code', 'placeholder'=>'Header', 'value'=>Input::old('header_code'))) !!}
                 </div>
             </div>
+            <div class="form-group {!! $errors->has('hotro_khachhang') ? 'has-error' : '' !!}">
+                <label class="control-label" for="hotro_khachhang">hỗ trợ khách hàng</label>
+                <div class="controls">
+                    @if ($errors->first('hotro_khachhang'))
+                        <span class="help-block">{!! $errors->first('hotro_khachhang') !!}</span>
+                    @endif
+                    {!! Form::textarea('hotro_khachhang', null, array('class'=>'form-control', 'height' => 2,
+                     'id' => 'hotro_khachhang', 'placeholder'=>'Hỗ trợ khách hàng', 'value'=>Input::old('hotro_khachhang'))) !!}
+                </div>
+            </div>
             <div class="form-group {!! $errors->has('footer_code') ? 'has-error' : '' !!}">
                 <label class="control-label" for="header_code">Footer</label>
                 <div class="controls">

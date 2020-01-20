@@ -117,6 +117,11 @@
     
     border-radius: .25rem;
 }
+.badge-pill {
+    padding-right: .6em;
+    padding-left: .6em;
+    border-radius: 10rem;
+}
 .cart-custom-1 .card-header:first-child {
     border-radius: calc(.5rem - 1px) calc(.5rem - 1px) 0 0;
 }
@@ -187,7 +192,7 @@
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    border-radius: .25rem;
+    
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 .fs-15 {
@@ -381,14 +386,22 @@ img {
                     </div>
                 </section>
                 <aside class="sidebar">
-                    
                     <div class="panel panel-arrows panel-orange panel-mang">
                         <div class="card cart-custom-1 d-md-flex">
-                          <div class="card-header card-header-custom-1 text-center text-uppercase font-weight-bold bg-white fs-120">HỖ TRỢ KHÁCH HÀNG</div>
-                        <div class="p-3">
-<div class="px-3"><a class="d-block badge badge-pill badge-warning text-left font-weight-bold pl-1 fs-15" title="{{$hotline['hot']}}" href="tel:{{$hotline['hot']}}"><img class="mr-1" src="/frontend/icon/call-icon.svg" alt="" height="24"> {{$hotline['hot']}}</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://zalo.me/{{$hotline['hot']}}" target="_blank" rel="noopener noreferrer"><img class="mr-1" src="/frontend/icon/zalo-icon.svg" alt="" height="24">Chat Zalo</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://m.me/" target="_blank" rel="noopener noreferrer"><img class="mr-1" src="/frontend/icon/message_fb.png" alt="" height="24">Chat Facebook</a></div>
-                 </div> 
-                    </div>
+      <div class="card-header card-header-custom-1 text-center text-uppercase font-weight-bold bg-white fs-120">HỖ TRỢ KHÁCH HÀNG</div>
+        <div class="p-3">
+          <div class="px-3"><a class="d-block badge badge-pill badge-warning text-left font-weight-bold pl-1 fs-15" title="{{$hotline['hot']}}" href="tel:{{$hotline['hot']}}">
+       <img class="mr-1" src="/frontend/icon/call-icon.svg" alt="" height="24"> {{$hotline['hot']}}</a> <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://zalo.me/{{$hotline['hot']}}" target="_blank" rel="noopener noreferrer">
+       <img class="mr-1" src="/frontend/icon/zalo-icon.svg" alt="" height="24">Chat Zalo</a> 
+       <a class="btn-support-chat d-block btn btn-primary rounded-pill text-left font-weight-bold pl-1 mt-3 fs-15" title="" href="https://m.me/" target="_blank" rel="noopener noreferrer">
+        <img class="mr-1" src="/frontend/icon/message_fb.png" alt="" height="24">Chat Facebook</a>
+
+        <hr class="mt-3 mb-2">
+
+        <div class="px-3"><a class="d-block text-center text-uppercase font-weight-bold">Góp ý, khiếu nại</a> <span style="color: #ff0000; "><strong><a class="d-block badge badge-pill text-center font-weight-bold pl-1 fs-15 mt-2" style="color: #ff0000; background-color: white !important;" title="{{$hotline['hot']}}" href="tel:{{$hotline['hot']}}">{{$hotline['hot']}}</a></strong></span></div>
+       </div>
+        </div> 
+    </div>
                 </div>
                     <div class="panel panel-arrows panel-orange panel-mang">
                         <div class="panel-header">

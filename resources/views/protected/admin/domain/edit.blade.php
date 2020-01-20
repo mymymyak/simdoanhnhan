@@ -116,6 +116,18 @@
 							</div>
 						</div>
 					</div>
+                <div class="col-md-6">
+                    <div class="form-group {!! $errors->has('footer_code') ? 'has-error' : '' !!}">
+                <label class="control-label" for="hotro_khachhang">Hỗ trợ khách hàng</label>
+                <div class="controls">
+                    @if ($errors->first('hotro_khachhang'))
+                        <span class="help-block">{!! $errors->first('hotro_khachhang') !!}</span>
+                    @endif
+                    {!! Form::textarea('hotro_khachhang', null, array('class'=>'form-control', 'height' => 2,
+                     'id' => 'hotro_khachhang', 'placeholder'=>'Hỗ trợ khách hàng', 'value'=>Input::old('hotro_khachhang'))) !!}
+                      </div>
+                  </div>
+                </div>
 					<div class="col-md-6">
 						<div class="form-group {!! $errors->has('footer_code') ? 'has-error' : '' !!}">
 							<label class="control-label" for="footer_code">Footer Script</label>

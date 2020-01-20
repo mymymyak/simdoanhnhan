@@ -97,7 +97,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $news = $this->_news->paginateSimple(5);
+        return view('home', [
+            'news' => $news
+        ]);
     }
 
     public function notFound(){

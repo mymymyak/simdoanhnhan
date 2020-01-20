@@ -35,7 +35,7 @@ class SimController extends Controller
 
     public function __construct(ElasticInterface $elastic, OptionsInterface $options, BangsoRepository $bangso, OrdersInterface $orders, Request $request)
     {
-    	parent::__construct();
+        parent::__construct();
         $this->currentPage = $request->get('page',1);
         $this->offsets = ($this->currentPage - 1) * config('global.perpageSim');
         $this->perPage = !empty(config('global.perpageSim')) ? config('global.perpageSim') : $this->perPage;
@@ -44,13 +44,13 @@ class SimController extends Controller
         $this->filterService = new SimFilter($elastic);
         $this->bangso = $bangso;
         $this->orders = $orders;
-		$this->filterData();
+        $this->filterData();
         $this->domain = $request->server('HTTP_HOST');
         $this->options = $options;
         $this->domainName = config('domainInfo')['domain_name'];
-        $this->template = isset(config('domainInfo')['template']) ? 'templates.' . config('domainInfo')['template'] .'.' : 'templates.mydang.';
-	    $this->bangso->setDomain($this->domain);
-	    $this->middleware('doNotCacheResponse', ['only' => ['actionDetailSim']]);
+        $this->template = isset(config('domainInfo')['template']) ? 'templates.' . config('domainInfo')['template'] .'.' : 'templates.default.';
+        $this->bangso->setDomain($this->domain);
+        $this->middleware('doNotCacheResponse', ['only' => ['actionDetailSim']]);
     }
 
     public function filterData()
@@ -61,12 +61,12 @@ class SimController extends Controller
         $m10so_filter = isset($_GET["m10so_filter"]) ? $_GET["m10so_filter"] : 0;
         $giaban_filter = isset($_GET["giaban_filter"]) ? intval($_GET["giaban_filter"]) : 0;
         $search_ajax = isset($_GET["filter"]) && $_GET["filter"] == true ? true : false;
-		if ($search_ajax == true && $price_filter == '' && $telco_filter == '' &&
-			$giaban_filter == '' && $m10so_filter == '') {
-			header("HTTP/1.1 301 Moved Permanently");
-			header("Location: /" . $this->currentUrl);
-			exit();
-		}
+        if ($search_ajax == true && $price_filter == '' && $telco_filter == '' &&
+            $giaban_filter == '' && $m10so_filter == '') {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: /" . $this->currentUrl);
+            exit();
+        }
         if (!empty($m10so_filter)) {
             $this->filter['mm'] = in_array($m10so_filter, [0, '09', '08', '07', '05', '03']) ? $m10so_filter : 0;
         }
@@ -96,21 +96,21 @@ class SimController extends Controller
     }
 
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 */
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function homePage(Request $request) {
-		if($request->get("search") != null){
-			$this->actionSearch($request->get("search"), $request);
-		}
-	    $shortCodeItems = json_decode(config('domainInfo')['home_shortcode']);
-	    $filterParams   = [];
-	    if ($shortCodeItems != null) {
-		    $filterParams = $this->filterService->getHomepageFilterParamsByShortCode($shortCodeItems);
-	    }
-	    $priorityList = $this->filterService->getSimHotForHome($this->domain, $filterParams);
+        if($request->get("search") != null){
+            $this->actionSearch($request->get("search"), $request);
+        }
+        $shortCodeItems = json_decode(config('domainInfo')['home_shortcode']);
+        $filterParams   = [];
+        if ($shortCodeItems != null) {
+            $filterParams = $this->filterService->getHomepageFilterParamsByShortCode($shortCodeItems);
+        }
+        $priorityList = $this->filterService->getSimHotForHome($this->domain, $filterParams);
         $keyHot = 'listSimHot'.md5('trang-chu');
         $listSimHot = session()->get($keyHot);
         $options = $this->options->findByOptionNameAndDomain('trang-chu',$this->domain);
@@ -126,10 +126,10 @@ class SimController extends Controller
             $view->with('web_head', !empty($seoConfig->head) ? $seoConfig->head : '');
             $view->with('web_foot', !empty($seoConfig->foot) ? $seoConfig->foot : '');
         });
-	    return view($this->template . 'home', [
-		    'listSimHot'        => $listSimHot,
-		    'widgetsContent'    => $priorityList
-	    ]);
+        return view($this->template . 'home', [
+            'listSimHot'        => $listSimHot,
+            'widgetsContent'    => $priorityList
+        ]);
     }
 
     /**
@@ -186,7 +186,7 @@ class SimController extends Controller
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
             'hideMang' => true,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
 
         ]);
     }
@@ -225,7 +225,7 @@ class SimController extends Controller
             'offsets' => $this->offsets,
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
         ]);
     }
 
@@ -288,323 +288,323 @@ class SimController extends Controller
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
             'hidePrice' => true,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
             ]);
     }
 
     public function actionSearch($alias, Request $request) {
-	    $http = 'http://';
-	    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-		    $http = 'https://';
-	    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])
-	              && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
-	              || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
-		    $http = 'https://';
-	    }
-	    $homeUrl = $request->path() == '/' ? $http . $request->server('HTTP_HOST')."/" : $request->url()."/";
-	    $searchQuery              = $alias;
-	    $ignoreViolatedCase       = preg_replace("/[^0-9^*^x]/", "", $searchQuery);
-	    $ignoreViolatedCase       = preg_replace('/\*+/', '*', $ignoreViolatedCase);
-	    $ignoreNonNumericCase     = preg_replace("/[^0-9]/", "", $searchQuery);
-	    $firstTwoLetters          = substr($ignoreViolatedCase, 0, 2);
-	    $sqlQueryable             = str_replace('x', '_',
-		    str_replace('*', '%', $ignoreViolatedCase));
-	    $numberOfMeaningCharacter = strlen($ignoreViolatedCase)
-	                                - substr_count($ignoreViolatedCase, '*')
-	                                - substr_count($ignoreViolatedCase, 'x');
-	    $explodedQuery            = explode('*', $ignoreViolatedCase);
-	    switch (true) {
-		    case $this->undefinedQuery($ignoreViolatedCase, $numberOfMeaningCharacter):
-			    $this->redirect(redirect()->home());
-			    break;
-		    case $this->isSpecificPhoneNumber($firstTwoLetters, $sqlQueryable, $ignoreViolatedCase, $numberOfMeaningCharacter):
-			    $this->redirect($homeUrl . $ignoreNonNumericCase);
-			    break;
-		    case $this->isBirthDateType($searchQuery, $ignoreNonNumericCase);
-			    $this->redirect($homeUrl . "sim-nam-sinh-$ignoreNonNumericCase");
-			    break;
-		    case  $this->headNumberType($explodedQuery, $firstTwoLetters):
-			    /** compare first number with 0 if equal then add 0 before first number */
-			    $headNumber = $explodedQuery[0][0] != '0' ? '0' . $explodedQuery[0] : $explodedQuery[0];
-			    $simUrlWithCurrentType                                                   = "";
-			    foreach ($this->getListSimTypesWithUrl() as $simTypeWithUrl) {
-				    if (in_array((string) $explodedQuery[1], $simTypeWithUrl['data'], true)) {
-					    $simUrlWithCurrentType = $simTypeWithUrl['url'];
-					    break;
-				    }
-			    }
-			    if (in_array($explodedQuery[1], $this->getListAcceptanceBirthYear())) {
-				    $simUrlWithCurrentType = 'sim-nam-sinh';
-			    }
-			    if ($simUrlWithCurrentType == '') {
-				    $simUrlWithCurrentType = 'sim-duoi';
-			    }
-			    $this->redirect($homeUrl . $simUrlWithCurrentType . "-" . $explodedQuery[1] . '-dau-' . $headNumber);
-			    break;
-		    case $this->vipNumberType($this->getListSimTypesWithUrl(), $searchQuery):
-			    $simTypeWithUrl = $this->getSimTypeBySearchQuery($this->getListSimTypesWithUrl(), $searchQuery);
-			    $this->redirect($homeUrl . $simTypeWithUrl['url'] . "-$ignoreNonNumericCase");
-			    break;
-		    case $this->manualCheckHeadNumber($searchQuery,$ignoreViolatedCase,$ignoreNonNumericCase):
-		    	    $this->redirect($homeUrl . 'sim-dau-so' . "-$ignoreNonNumericCase");
-		    	break;
-		    default:
-		    	/** Tail number */
-		    	$this->redirect($homeUrl . 'sim-duoi-so' . "-$ignoreNonNumericCase");
-			    break;
-	    }
+        $http = 'http://';
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+            $http = 'https://';
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])
+                  && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+                  || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+            $http = 'https://';
+        }
+        $homeUrl = $request->path() == '/' ? $http . $request->server('HTTP_HOST')."/" : $request->url()."/";
+        $searchQuery              = $alias;
+        $ignoreViolatedCase       = preg_replace("/[^0-9^*^x]/", "", $searchQuery);
+        $ignoreViolatedCase       = preg_replace('/\*+/', '*', $ignoreViolatedCase);
+        $ignoreNonNumericCase     = preg_replace("/[^0-9]/", "", $searchQuery);
+        $firstTwoLetters          = substr($ignoreViolatedCase, 0, 2);
+        $sqlQueryable             = str_replace('x', '_',
+            str_replace('*', '%', $ignoreViolatedCase));
+        $numberOfMeaningCharacter = strlen($ignoreViolatedCase)
+                                    - substr_count($ignoreViolatedCase, '*')
+                                    - substr_count($ignoreViolatedCase, 'x');
+        $explodedQuery            = explode('*', $ignoreViolatedCase);
+        switch (true) {
+            case $this->undefinedQuery($ignoreViolatedCase, $numberOfMeaningCharacter):
+                $this->redirect(redirect()->home());
+                break;
+            case $this->isSpecificPhoneNumber($firstTwoLetters, $sqlQueryable, $ignoreViolatedCase, $numberOfMeaningCharacter):
+                $this->redirect($homeUrl . $ignoreNonNumericCase);
+                break;
+            case $this->isBirthDateType($searchQuery, $ignoreNonNumericCase);
+                $this->redirect($homeUrl . "sim-nam-sinh-$ignoreNonNumericCase");
+                break;
+            case  $this->headNumberType($explodedQuery, $firstTwoLetters):
+                /** compare first number with 0 if equal then add 0 before first number */
+                $headNumber = $explodedQuery[0][0] != '0' ? '0' . $explodedQuery[0] : $explodedQuery[0];
+                $simUrlWithCurrentType                                                   = "";
+                foreach ($this->getListSimTypesWithUrl() as $simTypeWithUrl) {
+                    if (in_array((string) $explodedQuery[1], $simTypeWithUrl['data'], true)) {
+                        $simUrlWithCurrentType = $simTypeWithUrl['url'];
+                        break;
+                    }
+                }
+                if (in_array($explodedQuery[1], $this->getListAcceptanceBirthYear())) {
+                    $simUrlWithCurrentType = 'sim-nam-sinh';
+                }
+                if ($simUrlWithCurrentType == '') {
+                    $simUrlWithCurrentType = 'sim-duoi';
+                }
+                $this->redirect($homeUrl . $simUrlWithCurrentType . "-" . $explodedQuery[1] . '-dau-' . $headNumber);
+                break;
+            case $this->vipNumberType($this->getListSimTypesWithUrl(), $searchQuery):
+                $simTypeWithUrl = $this->getSimTypeBySearchQuery($this->getListSimTypesWithUrl(), $searchQuery);
+                $this->redirect($homeUrl . $simTypeWithUrl['url'] . "-$ignoreNonNumericCase");
+                break;
+            case $this->manualCheckHeadNumber($searchQuery,$ignoreViolatedCase,$ignoreNonNumericCase):
+                    $this->redirect($homeUrl . 'sim-dau-so' . "-$ignoreNonNumericCase");
+                break;
+            default:
+                /** Tail number */
+                $this->redirect($homeUrl . 'sim-duoi-so' . "-$ignoreNonNumericCase");
+                break;
+        }
     }
 
-	/**
-	 * @param $ignoreViolatedCase
-	 * @param $countMeaningCharacter
-	 *
-	 * @return bool
-	 */
-	private function undefinedQuery ($ignoreViolatedCase, $countMeaningCharacter) {
-		if (($ignoreViolatedCase == "") || ($countMeaningCharacter <= 1)) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * @param $ignoreViolatedCase
+     * @param $countMeaningCharacter
+     *
+     * @return bool
+     */
+    private function undefinedQuery ($ignoreViolatedCase, $countMeaningCharacter) {
+        if (($ignoreViolatedCase == "") || ($countMeaningCharacter <= 1)) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * @param $firstTwoLetter
-	 * @param $sqlQueryable
-	 * @param $ignoreViolatedCase
-	 * @param $numberOfMeaningCharacter
-	 *
-	 * @return bool
-	 * số sim cụ thể
-	 */
-	private function isSpecificPhoneNumber ($firstTwoLetter, $sqlQueryable, $ignoreViolatedCase, $numberOfMeaningCharacter) {
-		if (in_array($firstTwoLetter, [
-				'01',
-				'03',
-				'05',
-				'07',
-				'08',
-				'09',
-			]) && ($sqlQueryable == $ignoreViolatedCase) && ($numberOfMeaningCharacter >= 10)) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * @param $firstTwoLetter
+     * @param $sqlQueryable
+     * @param $ignoreViolatedCase
+     * @param $numberOfMeaningCharacter
+     *
+     * @return bool
+     * số sim cụ thể
+     */
+    private function isSpecificPhoneNumber ($firstTwoLetter, $sqlQueryable, $ignoreViolatedCase, $numberOfMeaningCharacter) {
+        if (in_array($firstTwoLetter, [
+                '01',
+                '03',
+                '05',
+                '07',
+                '08',
+                '09',
+            ]) && ($sqlQueryable == $ignoreViolatedCase) && ($numberOfMeaningCharacter >= 10)) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getListAcceptanceBirthYear(){
-		$acceptanceYears = array();
-		for ($i = 1970; $i <= date('Y'); $i ++) {
-			$acceptanceYears[] = $i;
-		}
-		return $acceptanceYears;
-	}
-	/**
-	 * @param $searchQuery
-	 * @param $ignoreNonNumericCase
-	 *
-	 * @return bool
-	 */
-	private function isBirthDateType ($searchQuery, $ignoreNonNumericCase) {
-		if (in_array($searchQuery, $this->getListAcceptanceBirthYear())
-		    || in_array($ignoreNonNumericCase, $this->getListAcceptanceBirthYear())) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * @return array
+     */
+    public function getListAcceptanceBirthYear(){
+        $acceptanceYears = array();
+        for ($i = 1970; $i <= date('Y'); $i ++) {
+            $acceptanceYears[] = $i;
+        }
+        return $acceptanceYears;
+    }
+    /**
+     * @param $searchQuery
+     * @param $ignoreNonNumericCase
+     *
+     * @return bool
+     */
+    private function isBirthDateType ($searchQuery, $ignoreNonNumericCase) {
+        if (in_array($searchQuery, $this->getListAcceptanceBirthYear())
+            || in_array($ignoreNonNumericCase, $this->getListAcceptanceBirthYear())) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * @param $explodedQuery
-	 * @param $firstTwoLetters
-	 *
-	 * @return bool
-	 */
-	public function headNumberType ($explodedQuery, $firstTwoLetters) {
-		if (count($explodedQuery) < 3) {
-			if (!empty($explodedQuery[1]) && (isset($explodedQuery[0]) && $explodedQuery[0] != "")) {
-				$headNumber = $explodedQuery[0][0] != '0' ? '0' . $explodedQuery[0] : $explodedQuery[0];
-				if (strpos(config('global.LIST_DAUSO'), $headNumber) !== false) {
-					return true;
-				}
-				if (strpos('09,08,07,05,03,02', $firstTwoLetters) !== false) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    /**
+     * @param $explodedQuery
+     * @param $firstTwoLetters
+     *
+     * @return bool
+     */
+    public function headNumberType ($explodedQuery, $firstTwoLetters) {
+        if (count($explodedQuery) < 3) {
+            if (!empty($explodedQuery[1]) && (isset($explodedQuery[0]) && $explodedQuery[0] != "")) {
+                $headNumber = $explodedQuery[0][0] != '0' ? '0' . $explodedQuery[0] : $explodedQuery[0];
+                if (strpos(config('global.LIST_DAUSO'), $headNumber) !== false) {
+                    return true;
+                }
+                if (strpos('09,08,07,05,03,02', $firstTwoLetters) !== false) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * @param $searchQuery
-	 * @param $ignoreViolatedCase
-	 * @param $ignoreNonNumericCase
-	 *
-	 * @return bool
-	 */
-	public function manualCheckHeadNumber ($searchQuery, $ignoreViolatedCase, $ignoreNonNumericCase) {
-		// Case đầu số check thủ công
-		if ($ignoreViolatedCase[0] == '0' && $ignoreViolatedCase[0] != "*"
-		    && (strpos(config('global.LIST_DAUSO'), $ignoreNonNumericCase) !== false
-		        || strpos(config('global.LIST_DAUSO'), substr($searchQuery, 0, 4)) !== false
-		        || strpos(config('global.LIST_DAUSO'), substr($searchQuery, 0, 3)) !== false)) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * @param $searchQuery
+     * @param $ignoreViolatedCase
+     * @param $ignoreNonNumericCase
+     *
+     * @return bool
+     */
+    public function manualCheckHeadNumber ($searchQuery, $ignoreViolatedCase, $ignoreNonNumericCase) {
+        // Case đầu số check thủ công
+        if ($ignoreViolatedCase[0] == '0' && $ignoreViolatedCase[0] != "*"
+            && (strpos(config('global.LIST_DAUSO'), $ignoreNonNumericCase) !== false
+                || strpos(config('global.LIST_DAUSO'), substr($searchQuery, 0, 4)) !== false
+                || strpos(config('global.LIST_DAUSO'), substr($searchQuery, 0, 3)) !== false)) {
+            return true;
+        }
+        return false;
+    }
 
-	public function vipNumberType($searchQuery, $ignoreNonNumericCase){
-		return !empty($this->getSimTypeBySearchQuery($searchQuery, $ignoreNonNumericCase));
-	}
+    public function vipNumberType($searchQuery, $ignoreNonNumericCase){
+        return !empty($this->getSimTypeBySearchQuery($searchQuery, $ignoreNonNumericCase));
+    }
 
-	public function getSimTypeBySearchQuery($searchQuery, $ignoreNonNumericCase){
-		foreach ($this->getListSimTypesWithUrl() as $simTypeWithUrl) {
-			if (in_array($searchQuery, $simTypeWithUrl['data'], true)
-			    || ($searchQuery[0] == '*' && in_array($ignoreNonNumericCase, $simTypeWithUrl['data']))) {
-				return $simTypeWithUrl;
-			}
-		}
-		return [];
-	}
-	/**
-	 * @return array
-	 */
-	private function getListSimTypesWithUrl () {
-		return [
-			['url'  => 'sim-tam-hoa',
-			 'data' => [
-				 '000',
-				 '111',
-				 '222',
-				 '333',
-				 '444',
-				 '555',
-				 '666',
-				 '777',
-				 '888',
-				 '999',
-			 ],
-			],
-			[
-				'url'  => 'sim-tu-quy',
-				'data' => [
-					'0000',
-					'1111',
-					'2222',
-					'3333',
-					'4444',
-					'5555',
-					'6666',
-					'7777',
-					'8888',
-					'9999',
-				],
-			],
-			[
-				'url'  => 'sim-ngu-quy',
-				'data' => [
-					'00000',
-					'11111',
-					'22222',
-					'33333',
-					'44444',
-					'55555',
-					'66666',
-					'77777',
-					'88888',
-					'99999',
-				],
-			],
-			[
-				'url'  => 'sim-luc-quy',
-				'data' => [
-					'000000',
-					'111111',
-					'222222',
-					'333333',
-					'444444',
-					'555555',
-					'666666',
-					'777777',
-					'888888',
-					'999999',
-				],
-			],
-			[
-				'url'  => 'sim-tien-len',
-				'data' => [
-					'0123',
-					'1234',
-					'2345',
-					'3456',
-					'4567',
-					'5678',
-					'6789',
-					'0246',
-					'1357',
-					'3579',
-					'2468',
-				],
-			],
-			[
-				'url'  => 'sim-so-doc',
-				'data' => [
-					'1102',
-					'4953',
-					'569',
-					'9988',
-				],
-			],
-			[
-				'url'  => 'sim-loc-phat',
-				'data' => [
-					'1368',
-					'1468',
-					'1486',
-					'68',
-					'6868',
-					'6886',
-					'86',
-					'8686',
-				],
-			],
-			[
-				'url'  => 'sim-ong-dia',
-				'data' => [
-					'38',
-					'3838',
-					'78',
-					'7878',
-					'3878',
-				],
-			],
-			[
-				'url'  => 'sim-than-tai',
-				'data' => [
-					'39',
-					'3939',
-					'3979',
-					'79',
-					'7979',
-				],
-			],
-		];
-	}
+    public function getSimTypeBySearchQuery($searchQuery, $ignoreNonNumericCase){
+        foreach ($this->getListSimTypesWithUrl() as $simTypeWithUrl) {
+            if (in_array($searchQuery, $simTypeWithUrl['data'], true)
+                || ($searchQuery[0] == '*' && in_array($ignoreNonNumericCase, $simTypeWithUrl['data']))) {
+                return $simTypeWithUrl;
+            }
+        }
+        return [];
+    }
+    /**
+     * @return array
+     */
+    private function getListSimTypesWithUrl () {
+        return [
+            ['url'  => 'sim-tam-hoa',
+             'data' => [
+                 '000',
+                 '111',
+                 '222',
+                 '333',
+                 '444',
+                 '555',
+                 '666',
+                 '777',
+                 '888',
+                 '999',
+             ],
+            ],
+            [
+                'url'  => 'sim-tu-quy',
+                'data' => [
+                    '0000',
+                    '1111',
+                    '2222',
+                    '3333',
+                    '4444',
+                    '5555',
+                    '6666',
+                    '7777',
+                    '8888',
+                    '9999',
+                ],
+            ],
+            [
+                'url'  => 'sim-ngu-quy',
+                'data' => [
+                    '00000',
+                    '11111',
+                    '22222',
+                    '33333',
+                    '44444',
+                    '55555',
+                    '66666',
+                    '77777',
+                    '88888',
+                    '99999',
+                ],
+            ],
+            [
+                'url'  => 'sim-luc-quy',
+                'data' => [
+                    '000000',
+                    '111111',
+                    '222222',
+                    '333333',
+                    '444444',
+                    '555555',
+                    '666666',
+                    '777777',
+                    '888888',
+                    '999999',
+                ],
+            ],
+            [
+                'url'  => 'sim-tien-len',
+                'data' => [
+                    '0123',
+                    '1234',
+                    '2345',
+                    '3456',
+                    '4567',
+                    '5678',
+                    '6789',
+                    '0246',
+                    '1357',
+                    '3579',
+                    '2468',
+                ],
+            ],
+            [
+                'url'  => 'sim-so-doc',
+                'data' => [
+                    '1102',
+                    '4953',
+                    '569',
+                    '9988',
+                ],
+            ],
+            [
+                'url'  => 'sim-loc-phat',
+                'data' => [
+                    '1368',
+                    '1468',
+                    '1486',
+                    '68',
+                    '6868',
+                    '6886',
+                    '86',
+                    '8686',
+                ],
+            ],
+            [
+                'url'  => 'sim-ong-dia',
+                'data' => [
+                    '38',
+                    '3838',
+                    '78',
+                    '7878',
+                    '3878',
+                ],
+            ],
+            [
+                'url'  => 'sim-than-tai',
+                'data' => [
+                    '39',
+                    '3939',
+                    '3979',
+                    '79',
+                    '7979',
+                ],
+            ],
+        ];
+    }
 
-	/**
-	 * @param $toUrl
-	 */
-	private function redirect ($toUrl) {
-		if (config('domainInfo')['template'] == 'amp') {
-			header("AMP-Redirect-To: " . $toUrl);
-			header("Access-Control-Expose-Headers: AMP-Redirect-To, AMP-Access-Control-Allow-Source-Origin");
-			exit;
-		}
-		header('HTTP/1.1 301 Moved Permanently');
-		header('Location: ' . $toUrl);
-		exit;
-	}
+    /**
+     * @param $toUrl
+     */
+    private function redirect ($toUrl) {
+        if (config('domainInfo')['template'] == 'amp') {
+            header("AMP-Redirect-To: " . $toUrl);
+            header("Access-Control-Expose-Headers: AMP-Redirect-To, AMP-Access-Control-Allow-Source-Origin");
+            exit;
+        }
+        header('HTTP/1.1 301 Moved Permanently');
+        header('Location: ' . $toUrl);
+        exit;
+    }
 
     public function actionDauso($alias, Request $request)
     {
@@ -645,8 +645,8 @@ class SimController extends Controller
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
             'hideMang' => true,
-			'tag' => $alias,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'tag' => $alias,
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
         ]);
     }
     public function actionDuoiso($alias, Request $request)
@@ -675,8 +675,8 @@ class SimController extends Controller
             $view->with('web_head', !empty($seoConfig->head) ? $seoConfig->head : '');
             $view->with('web_foot', !empty($seoConfig->foot) ? $seoConfig->foot : '');
         });
-		$linkgoiyGlobal = $this->bangso->getLinkGoiY();
-		$linkgoiyGlobal = explode(PHP_EOL, $linkgoiyGlobal);
+        $linkgoiyGlobal = $this->bangso->getLinkGoiY();
+        $linkgoiyGlobal = explode(PHP_EOL, $linkgoiyGlobal);
         return view($this->template . 'sim.sim', [
             'total' => $total,
             'listSim' => $dataSim,
@@ -685,8 +685,8 @@ class SimController extends Controller
             'offsets' => $this->offsets,
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
-			'tag' => $alias,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : $linkgoiyGlobal
+            'tag' => $alias,
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : $linkgoiyGlobal
         ]);
     }
 
@@ -775,8 +775,8 @@ class SimController extends Controller
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
             'hidePrice' => true,
-			'tag' => $alias,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'tag' => $alias,
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
         ]);
     }
 
@@ -855,8 +855,8 @@ class SimController extends Controller
             'offsets' => $this->offsets,
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
-			'tag' => $dau .'*'. $alias,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'tag' => $dau .'*'. $alias,
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
         ]);
 
     }
@@ -904,8 +904,8 @@ class SimController extends Controller
             'offsets' => $this->offsets,
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
-			'tag' => $alias,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'tag' => $alias,
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
         ]);
     }
 
@@ -941,7 +941,7 @@ class SimController extends Controller
             'offsets' => $this->offsets,
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
         ]);
     }
 
@@ -961,7 +961,7 @@ class SimController extends Controller
         if (!empty($options)) {
             $seoConfig = json_decode($options->option_value);
         }
-		//var_dump($seoConfig);
+        //var_dump($seoConfig);
         View::composer('*', function ($view) use ($seoConfig) {
             $view->with('web_title', !empty($seoConfig->title) ? $seoConfig->title : 'Sim giá rẻ');
             $view->with('web_h1', !empty($seoConfig->h1) ? $seoConfig->h1 : 'Sim giá rẻ');
@@ -978,7 +978,7 @@ class SimController extends Controller
             'offsets' => $this->offsets,
             'filterActive' => $this->filterActive,
             'currentUrl' => $this->currentUrl,
-			'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
+            'linkgoiy' => !empty($seoConfig->sim_goi_y) ? explode(PHP_EOL, $seoConfig->sim_goi_y) : []
         ]);
     }
 
@@ -1018,15 +1018,15 @@ class SimController extends Controller
                         'c2' => $line->cat_id,
                          'd2' => $line->d2,
                     ];
-					if(isset($line->d)) $simInfo2['d'] = $line->d;
-					if(isset($line->d2)) $simInfo2['d2'] = $line->d2;
-					if(isset($line->h)) $simInfo2['h'] = $line->h;
+                    if(isset($line->d)) $simInfo2['d'] = $line->d;
+                    if(isset($line->d2)) $simInfo2['d2'] = $line->d2;
+                    if(isset($line->h)) $simInfo2['h'] = $line->h;
                     $simInfo = json_encode($simInfo2);
-					// var_dump($line);
+                    // var_dump($line);
                 }
             }
         }
-		// var_dump($simInfo);
+        // var_dump($simInfo);
         $daban = false;
         $suggest = [];
         if (!empty($simInfo)) {
@@ -1148,11 +1148,11 @@ class SimController extends Controller
         }
 
         View::composer('*', function ($view) use ($title, $des, $sosim, $loai, $mang) {
-	        $view->with('web_title', ' Sim '.$sosim.' - Mua Sim '.$sosim.' Giá Rẻ Tại '.$this->domain);
+            $view->with('web_title', ' Sim '.$sosim.' - Mua Sim '.$sosim.' Giá Rẻ Tại '.$this->domain);
             //$view->with('web_title', !empty($title) ? $title : 'Sim ' . $sosim . ' - Mua Sim ' . $sosim);
             $view->with('web_h1', !empty($title) ? $title : 'Sim ' . $sosim . ' - Mua Sim ' . $sosim);
             //$view->with('web_description', !empty($des) ? $des : 'Sim ' . $sosim . ' - Mua Sim ' . $sosim);
-	        $view->with('web_description', 'Sim ' . $sosim . ' Thuộc Dòng ' . $loai . ' Của Mạng ' . $mang . '. Mua Sim ' . $sosim . ' Giá Rẻ Hơn Tại ' . $this->domain . ', Freeship Toàn Quốc, ĐK Chính Chủ');
+            $view->with('web_description', 'Sim ' . $sosim . ' Thuộc Dòng ' . $loai . ' Của Mạng ' . $mang . '. Mua Sim ' . $sosim . ' Giá Rẻ Hơn Tại ' . $this->domain . ', Freeship Toàn Quốc, ĐK Chính Chủ');
             $view->with('web_head', '');
             $view->with('web_foot', '');
         });
@@ -1163,20 +1163,20 @@ class SimController extends Controller
     }
 
     public function actionOrder(Request $request) {
-		// var_dump($request);die();
-	    $customerPhoneNumber              = $request->get('order_phone', '');
-	    $orderSim                      = $request->get('order_sim', '');
-	    $ignoreViolatedCase       = preg_replace("/[^0-9^*^x]/", "", $customerPhoneNumber);
-	    $ignoreViolatedCase       = preg_replace('/\*+/', '*', $ignoreViolatedCase);
-	    $firstTwoLetters          = substr($ignoreViolatedCase, 0, 2);
-	    $sqlQueryable             = str_replace('x', '_',
-		    str_replace('*', '%', $ignoreViolatedCase));
-	    $numberOfMeaningCharacter = strlen($ignoreViolatedCase)
-	                                - substr_count($ignoreViolatedCase, '*')
-	                                - substr_count($ignoreViolatedCase, 'x');
-	    if(!$this->isSpecificPhoneNumber($firstTwoLetters, $sqlQueryable, $ignoreViolatedCase, $numberOfMeaningCharacter)){
-	    	throw new BadRequestHttpException("Vui lòng nhập đúng thông tin");
-	    }
+        // var_dump($request);die();
+        $customerPhoneNumber              = $request->get('order_phone', '');
+        $orderSim                      = $request->get('order_sim', '');
+        $ignoreViolatedCase       = preg_replace("/[^0-9^*^x]/", "", $customerPhoneNumber);
+        $ignoreViolatedCase       = preg_replace('/\*+/', '*', $ignoreViolatedCase);
+        $firstTwoLetters          = substr($ignoreViolatedCase, 0, 2);
+        $sqlQueryable             = str_replace('x', '_',
+            str_replace('*', '%', $ignoreViolatedCase));
+        $numberOfMeaningCharacter = strlen($ignoreViolatedCase)
+                                    - substr_count($ignoreViolatedCase, '*')
+                                    - substr_count($ignoreViolatedCase, 'x');
+        if(!$this->isSpecificPhoneNumber($firstTwoLetters, $sqlQueryable, $ignoreViolatedCase, $numberOfMeaningCharacter)){
+            throw new BadRequestHttpException("Vui lòng nhập đúng thông tin");
+        }
         $attr = [
             'sosim' => $orderSim,
             'siminfo' => $request->get('order_price', '0') . ' ' . $request->get('order_telco', 'kxd'),
@@ -1192,17 +1192,17 @@ class SimController extends Controller
             'tinhtrang' => 'moidat',
             'ghichu' => '',
             'domain' => $this->domain,
-			'viewed' => 0
+            'viewed' => 0
         ];
         try {
 
-	        $preOrder = $this->orders->isDuplicatedOrder($customerPhoneNumber, $orderSim);
-	        if ($preOrder) {
-		        return Response::json([
-			        'created'       => false,
-			        'errorMessages' => "Bạn đã đặt hàng thành công, đơn hàng của bạn đang được xử lí",
-		        ], 400);
-	        }
+            $preOrder = $this->orders->isDuplicatedOrder($customerPhoneNumber, $orderSim);
+            if ($preOrder) {
+                return Response::json([
+                    'created'       => false,
+                    'errorMessages' => "Bạn đã đặt hàng thành công, đơn hàng của bạn đang được xử lí",
+                ], 400);
+            }
             $order = $this->orders->create($attr);
             return Response::json(array('created' => $order));
         } catch (ValidationException $e) {
@@ -1331,23 +1331,23 @@ class SimController extends Controller
             }
         }
         // ẩn mã kho
-	    if ($anmakho) {
-		    $anmakho2 = explode(',', $anmakho);
-		    if (is_array($anmakho2)) {
-			    $searchParams['anmakho'] = [];
-			    foreach ($anmakho2 as $d) {
-				    if (empty($d)) {
-					    continue;
-				    }
-				    $searchParams['anmakho'][] = $d;
-				    $arrayQuery['anmakho'][] = $d;
-			    }
-			    if (!empty($arrayQuery['anmakho'])) {
-				    $arrayQuery['anmakho'] = implode(',', $arrayQuery['anmakho']);
-			    }
-			    $title .= ' ẩn mã kho ' . $arrayQuery['anmakho'];
-		    }
-	    }
+        if ($anmakho) {
+            $anmakho2 = explode(',', $anmakho);
+            if (is_array($anmakho2)) {
+                $searchParams['anmakho'] = [];
+                foreach ($anmakho2 as $d) {
+                    if (empty($d)) {
+                        continue;
+                    }
+                    $searchParams['anmakho'][] = $d;
+                    $arrayQuery['anmakho'][] = $d;
+                }
+                if (!empty($arrayQuery['anmakho'])) {
+                    $arrayQuery['anmakho'] = implode(',', $arrayQuery['anmakho']);
+                }
+                $title .= ' ẩn mã kho ' . $arrayQuery['anmakho'];
+            }
+        }
         $searchParams['page'] = $pageNum;
         $searchParams['limit'] = $limit;
         $searchParams['order'] = ['pn' => 'asc'];
@@ -1488,17 +1488,17 @@ class SimController extends Controller
         echo createImage($sim['SIM'], $sim['SIMFULL'], $sim['GIABAN'], $sim['MANGIMG'], $sim['LOAI']);exit;
     }
 
-	public function sitemap($alias){
-		$content = $this->bangso->readSitemapAndRobots($alias.'.xml');
-		return response($content, 200, [
-			'Content-Type' => 'application/xml'
-		]);
-	}
+    public function sitemap($alias){
+        $content = $this->bangso->readSitemapAndRobots($alias.'.xml');
+        return response($content, 200, [
+            'Content-Type' => 'application/xml'
+        ]);
+    }
 
-	public function robots(){
-		$content = $this->bangso->readSitemapAndRobots('robots.txt');
-		return response($content, 200, [
-			'Content-Type' => 'text/pain'
-		]);
-	}
+    public function robots(){
+        $content = $this->bangso->readSitemapAndRobots('robots.txt');
+        return response($content, 200, [
+            'Content-Type' => 'text/pain'
+        ]);
+    }
 }

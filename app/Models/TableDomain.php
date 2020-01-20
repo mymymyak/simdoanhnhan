@@ -19,5 +19,5 @@ class TableDomain extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'domain', 'highlights_number', 'active', 'template', 'config', 'domain_name', 'header_code', 'footer_code', 'home_shortcode', 'hotline', 'is_updated_bangso'];
+    protected $fillable = ['id', 'domain', 'highlights_number', 'active', 'template', 'config', 'domain_name', 'header_code', 'footer_code', 'home_shortcode', 'hotline', 'is_updated_bangso','hotro_khachhang'];
 }

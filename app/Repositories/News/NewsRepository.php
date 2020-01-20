@@ -75,6 +75,7 @@ class NewsRepository extends RepositoryAbstract implements NewsInterface, Crudab
     }
 
     public function getLastestNews($domain) {
+       
         return $this->news->where('domain', $domain)->orderBy('id', 'DESC')->limit(5)->get();
     }
 

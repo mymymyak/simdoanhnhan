@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
                 'template' => $domainInfo->template,
                 'logo' => $configObj->logo,
                 'logo_mobile' => isset($configObj->logo_mobile) ? $configObj->logo_mobile : "",
+               
                 'favicon' => $configObj->favicon,
                 'main_color' => '#'.$configObj->main_color,
                 'domain_name' => $domainInfo->domain_name,
