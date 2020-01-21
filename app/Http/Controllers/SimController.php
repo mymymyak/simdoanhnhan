@@ -602,7 +602,13 @@ class SimController extends Controller
             exit;
         }
         header('HTTP/1.1 301 Moved Permanently');
+        if(!is_object($toUrl))
+        {
         header('Location: ' . $toUrl);
+        }else{
+            return redirect()->home();
+        }
+        // redirect($toUrl);
         exit;
     }
 

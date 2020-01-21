@@ -36,12 +36,13 @@ class DomainCache extends AbstractDomainDecorator
     }
 
     public function findByDomainName($domain) {
-        $key = $this->cacheKey . '.findByDomainName'. $domain;
+     $key = $this->cacheKey . '.findByDomainName'. $domain;
 
-        if ($this->cache->has($key)) {
-            return $this->cache->get($key);
-        }
+        // if ($this->cache->has($key)) {
+        //     return $this->cache->get($key);
+        // }
         $str = $this->domainMd->findByDomainName($domain);
+        //dd( $str );
         $this->cache->put($key, $str, $this->cacheTime);
 
         return $str;

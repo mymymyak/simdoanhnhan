@@ -40,6 +40,7 @@ class DomainRepository extends RepositoryAbstract implements DomainInterface, Cr
     }
 
     public function findByDomainName($domain) {
+       // dd($domain);
         return $this->domainMd->where('domain', $domain)->first();
     }
 

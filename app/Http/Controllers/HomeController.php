@@ -38,7 +38,7 @@ class HomeController extends Controller
 
     public function actionDetailList(Request $request) {
         $news = $this->_news->paginateSimple(12);
-
+        
         View::composer('*', function ($view) {
             $view->with('web_title', 'Tin Tức Sim Số');
             $view->with('web_h1', 'Tin Tức Sim Số');
@@ -83,7 +83,6 @@ class HomeController extends Controller
             $view->with('web_foot', '');
         });
 		$related = $this->_news->getRelatedNews($this->domain, $news->id);
-
         return view($this->template.'news.detail', [
             'news' => $news,
 			'related' => $related
@@ -97,7 +96,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $news = $this->_news->paginateSimple(5);
+
         return view('home', [
             'news' => $news
         ]);

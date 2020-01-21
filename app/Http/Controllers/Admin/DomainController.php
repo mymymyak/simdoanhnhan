@@ -52,6 +52,7 @@ class DomainController extends Controller {
      */
     public function create() {
         $template = config('global.template');
+        $domain = $this->domain;
         $template[''] = 'Chọn';
         ksort($template);
         return view('protected.admin.domain.create', ['template' => $template]);

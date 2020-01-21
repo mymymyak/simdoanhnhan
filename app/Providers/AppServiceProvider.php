@@ -34,11 +34,12 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
             $configObj = json_decode($domainInfo->config);
+           // dd($domainInfo);
             Config::set('domainInfo', [
                 'template' => $domainInfo->template,
                 'logo' => $configObj->logo,
                 'logo_mobile' => isset($configObj->logo_mobile) ? $configObj->logo_mobile : "",
-               
+                'hotro_khachhang' => isset($domainInfo->hotro_khachhang) ? $domainInfo->hotro_khachhang : null,
                 'favicon' => $configObj->favicon,
                 'main_color' => '#'.$configObj->main_color,
                 'domain_name' => $domainInfo->domain_name,

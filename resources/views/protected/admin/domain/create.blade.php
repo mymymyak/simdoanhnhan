@@ -134,7 +134,7 @@
                             @if ($errors->first('home_shortcode'))
                                 <span class="help-block">{!! $errors->first('home_shortcode') !!}</span>
                             @endif
-                            {!! Form::textarea('home_shortcode', $domain->header_code,
+                            {!! Form::textarea('home_shortcode',null,
                             array('class'=>'form-control', 'id' => 'home_shortcode',
                              'placeholder'=>'HomePage ShortCode', 'value'=>Input::old('home_shortcode'))) !!}
                         </div>
